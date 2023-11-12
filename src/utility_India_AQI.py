@@ -90,8 +90,7 @@ def get_city_aggregate(df: pd.DataFrame) -> pd.DataFrame:
 
     return agg_df
 
-
-def concat_and_sort(df_list: List[pd.DataFrame]) -> pd.DataFrame:
+def concat_and_sort(df_list: List[pd.DataFrame], mode: str = 'State or City') -> pd.DataFrame:
     
     """
     Concatenates a list of dataframes of same column structure and sorts the concatenated dataframe by state, year, month, day.
@@ -99,13 +98,19 @@ def concat_and_sort(df_list: List[pd.DataFrame]) -> pd.DataFrame:
     
     Args:
     df_list (List[pd.DataFrame]): The list of dataframes to be concatenated and sorted.
+    mode (str): The mode to use for aggregation. Must be 'State' or 'City'.
     
     Returns:
     pd.DataFrame: The concatenated and sorted dataframe.
     
     Raises:
     ValueError: If the dataframes in the list have different column structures.
+                If the mode parameter is not 'State' or 'City'.
     """
+    # check if the mode parameter is valid
+    if mode not in ['State', 'City']:
+        raise ValueError("Invalid mode parameter. Must be 'State' or 'City'.")
+    
     # check if the column structures are the same
     for i in range(len(df_list)-1):
         if not df_list[i].columns.equals(df_list[i+1].columns):
@@ -113,11 +118,11 @@ def concat_and_sort(df_list: List[pd.DataFrame]) -> pd.DataFrame:
     
     # call the get_state_aggregate function on each dataframe in the list
     agg_df_list = []
-    if 'States' in df_list[0].columns:
+    if mode == 'State':
         for df in df_list:
             agg_df = get_state_aggregate(df)
             agg_df_list.append(agg_df)
-    elif 'City' in df_list[0].columns:
+    elif mode == 'City':
         for df in df_list:
             agg_df = get_city_aggregate(df)
             agg_df_list.append(agg_df)    
