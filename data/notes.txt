@@ -1,0 +1,2 @@
+The sub-directories here must be in the format: hour_* 
+Otherwise, they will not be considered.
