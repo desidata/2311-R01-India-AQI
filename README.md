@@ -17,3 +17,10 @@ The datasets cotain data at a hierarchical structure of :
 In order to represent AQI at the State-level, we have considered the _**median**_ AQI across all cities/towns within a state, for a paricular day-hour timestamp.
 
 We have produced _racing bar charts_ in order to represent the _Median AQI_ variations across India.
+
+---
+#### Here's a demo:
+
+![](./animations/india_aqi_states20231112_225829.gif)
+
+![](./animations/india_aqi_cities20231112_230610.gif)
